@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul 19 16:26:26 2015
+
+@author: salvatore
+"""
+
+def LIS(seq_in,n): 
+  len_subseq=[0]*n
+  prev=[-1]*n
+ 
+  for i in range(n):
+    maxLen=0
+    for j in range(i):
+      if seq_in[i]>seq_in[j] and len_subseq[j]>maxLen :
+          maxLen=len_subseq[j]
+          prev[i]=j
+ 
+    len_subseq[i]=maxLen+1
+ 
+  point=len_subseq.index(max(len_subseq))
+  seq_out=[]
+  while(point!=-1):
+    seq_out=[seq_in[point]]+seq_out
+    point=prev[point]
+ 
+  return seq_out
+
+with open('rosalind_lgis.txt','r') as inp:
+    N=int(inp.readline().strip())
+    pi=map(int,inp.read().replace('\n',' ').split(' ')[:-1])
+    lis=LIS(pi,N)
+    pi_neg=map(lambda x,y:x*y,pi,[-1]*N)
+    lds_neg=LIS(pi_neg,N)
+    lds=map(lambda x,y:x*y,lds_neg,[-1]*len(lds_neg))
+    
+    with open('outputlgis.txt','w') as out:
+        for num in lis:
+            out.write(str(num)+' ')
+        out.write('\n')
+        for numdec in lds:
+            out.write(str(numdec)+' ')
