@@ -4,7 +4,6 @@ Created on Sun Jul 19 16:26:26 2015
 
 @author: salvatore
 """
-
 def LIS(seq_in,n): 
   len_subseq=[0]*n
   prev=[-1]*n
@@ -28,11 +27,11 @@ def LIS(seq_in,n):
 
 with open('rosalind_lgis.txt','r') as inp:
     N=int(inp.readline().strip())
-    pi=map(int,inp.read().replace('\n',' ').split(' ')[:-1])
+    pi=list(map(int,inp.read().replace('\n',' ').split(' ')[:-1]))
     lis=LIS(pi,N)
-    pi_neg=map(lambda x,y:x*y,pi,[-1]*N)
+    pi_neg=list(map(lambda x,y:x*y,pi,[-1]*N))
     lds_neg=LIS(pi_neg,N)
-    lds=map(lambda x,y:x*y,lds_neg,[-1]*len(lds_neg))
+    lds=list(map(lambda x,y:x*y,lds_neg,[-1]*len(lds_neg)))
     
     with open('outputlgis.txt','w') as out:
         for num in lis:
